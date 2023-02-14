@@ -13,7 +13,7 @@
   <script type="text/javascript"> 
     var hash = location.hash;
     var hash = location.hash.substr(1);
-    
+    var hash = btoa(hash);
 
     let myInput = document.querySelector('input[name="myInput"]');
     myInput.value = hash;
