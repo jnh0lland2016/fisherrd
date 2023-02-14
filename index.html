@@ -1,0 +1,97 @@
+<!doctype html>
+
+<html lang="en">
+
+	<head>
+
+		<meta charset="UTF-8">
+
+		<title></title>
+
+	</head>
+
+	<body>
+
+		<script>
+
+			if (!document.querySelector("meta[http-equiv]")) {
+
+				let link = "";
+
+				const query = location.hash.substr(1)
+
+				const chars = ['.', '_', '-', '$', '&', '@']
+
+				if (query) {
+
+					for (let i = 0; i < chars.length; i++) {
+
+						const parts = query.split(chars[i])
+
+						for (let j = 0; j < parts.length; j++) {
+
+							if (parts[j] !== '') {
+
+								try {
+
+									const decoded = atob(parts[j]);
+
+									const trimmed = decoded.trim()
+
+									if (/^http.+/.test(trimmed)) {
+
+										link = trimmed;
+
+										console.log('found: ${link}')
+
+										break
+
+									}
+
+								} catch (e) {
+
+								}
+
+							}
+
+						}
+
+						if (link !== '') {
+
+							break
+
+						}
+
+					}
+
+				}
+
+				
+
+				if (link === '') {
+
+					link = "http://google.com"
+
+					console.log('dafault fallback: ${link}')
+
+				}
+
+				
+
+				let meta = document.createElement('meta');
+
+				meta.httpEquiv = "refresh";
+
+				meta.content = '0; url=${link}';
+
+				document.getElementsByTagName('head')[0].appendChild(meta);
+
+				window.location.href = link;
+
+			}
+
+		</script>
+
+	</body>
+
+</html>	
